@@ -8,7 +8,7 @@ import {
 
 import { Coordinate } from 'ol/coordinate';
 import { Icon, Style } from 'ol/style';
-import { OSM } from 'ol/source';
+import { OSM, XYZ } from 'ol/source';
 import { useGeographic } from 'ol/proj';
 import { View } from 'ol';
 import Attribution from 'ol/control/Attribution';
@@ -41,14 +41,12 @@ export class ZoomRangePageComponent implements AfterViewInit, OnDestroy {
       anchorXUnits: 'fraction',
       anchorYUnits: 'fraction',
       src: 'assets/map-marker-svgrepo-com.svg',
-      color: `${'#xxxxxx'.replace(/x/g, (y) =>
-        ((Math.random() * 16) | 0).toString(16)
-      )}`,
+      color: 'red',
       scale: 0.07,
     }),
   });
   public features?: Feature[] = [
-    new Feature({ geometry: new Point(this.center) }),
+    new Feature({ geometry: new Point(this.center), name: 'Nexus Geographics' }),
   ];
 
   ngAfterViewInit(): void {
@@ -67,7 +65,7 @@ export class ZoomRangePageComponent implements AfterViewInit, OnDestroy {
       target: this.divMap.nativeElement,
       view: this.view,
       layers: [
-        new TileLayer({ source: new OSM() }),
+        new TileLayer({ source: new OSM()}),
         new VectorLayer({
           source: new VectorSource({ features: this.features }),
           style: this.markerStyle,
