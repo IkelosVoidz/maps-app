@@ -150,10 +150,26 @@ export class MarkersPageComponent implements AfterViewInit, OnDestroy {
   addMarker(lngLat: Coordinate, color: string): void {
     if (!this.map || !this.view || !this.vectorLayer) return;
 
+    // let offsetLngLat = lngLat;
+
+    // const existingFeatures = this.vectorLayer.getSource()?.getFeatures();
+    // const samePositionFeature = existingFeatures?.find(feature => {
+    //     const coordinates = feature.getGeometry()?.get('coordinates');
+    //     return coordinates[0] === lngLat[0] && coordinates[1] === lngLat[1];
+    // });
+
+    // if (samePositionFeature) {
+    //     offsetLngLat = [
+    //         lngLat[0] + (Math.random() - 0.5) / 1000,
+    //         lngLat[1] + (Math.random() - 0.5) / 1000,
+    //     ] as Coordinate;
+    // }
+
     const offsetLngLat = [
       lngLat[0] + (Math.random() - 0.5) / 1000,
       lngLat[1] + (Math.random() - 0.5) / 1000,
-    ] as Coordinate;
+  ] as Coordinate;
+
     const marker = new Feature({ geometry: new Point(offsetLngLat) });
 
     marker.setStyle(this.createNewFeatureStyle());
